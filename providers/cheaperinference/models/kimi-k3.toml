@@ -1,5 +1,5 @@
-# Rates: GET https://api.cheaperinference.com/v1/models (pricing_version sha256:90e02600…, checked 2026-09-11T15:01:02Z)
-# Discounted marketplace rate, 37.16% off the model maker's list price ($3.0/$15.0 per 1M).
+# Rates: GET https://api.cheaperinference.com/v1/models (pricing_version sha256:2a123704…, checked 2026-09-11T23:00:41Z)
+# Discounted marketplace rate, 51.63% off the model maker's list price ($3.0/$15.0 per 1M).
 base_model = "moonshotai/kimi-k3"
 
 [[reasoning_options]]
@@ -10,10 +10,10 @@ type = "effort"
 values = ["low", "high", "max"]
 
 [cost]
-input = 1.885308
-output = 9.42654
-cache_read = 0.210283
-cache_write = 1.885308
+input = 1.446611
+output = 7.256018
+cache_read = 0.165327
+cache_write = 1.446611
 
 [limit]
 context = 1000000
