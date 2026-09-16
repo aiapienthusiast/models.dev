@@ -1,0 +1,16 @@
+# Rates: GET https://api.cheaperinference.com/v1/models (pricing_version sha256:1099de72…, checked 2026-09-16T08:00:58Z)
+# Discounted marketplace rate, 30.00% off the model maker's list price ($0.214/$2.55 per 1M).
+base_model = "alibaba/qwen3.8-27b"
+
+[[reasoning_options]]
+type = "effort"
+values = ["none", "low", "medium", "xhigh"]
+
+[cost]
+input = 0.1498
+output = 1.785
+cache_read = 0.01819
+cache_write = 0.1498
+
+[limit]
+output = 65536

@@ -1,0 +1,17 @@
+# Rates: GET https://api.cheaperinference.com/v1/models (pricing_version sha256:1099de72…, checked 2026-09-16T08:00:58Z)
+# Discounted marketplace rate, 30.00% off the model maker's list price ($0.3/$1.2 per 1M).
+base_model = "minimax/MiniMax-M2.7"
+
+[[reasoning_options]]
+type = "effort"
+values = ["high"]
+
+[cost]
+input = 0.21
+output = 0.84
+cache_read = 0.0255
+cache_write = 0.255
+
+[limit]
+context = 198000
+output = 32768
