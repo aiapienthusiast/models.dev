@@ -3,9 +3,7 @@
 base_model = "anthropic/claude-sonnet-4-5"
 
 attachment = false
-
-[[reasoning_options]]
-type = "budget_tokens"
+reasoning_options = []
 
 [cost]
 input = 2.1

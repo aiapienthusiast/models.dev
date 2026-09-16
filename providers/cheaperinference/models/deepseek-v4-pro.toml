@@ -8,7 +8,7 @@ type = "toggle"
 
 [[reasoning_options]]
 type = "effort"
-values = ["none", "high", "xhigh"]
+values = ["high", "xhigh"]
 
 [cost]
 input = 0.462
