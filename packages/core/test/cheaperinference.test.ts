@@ -1,5 +1,10 @@
-import { expect, test } from "bun:test";
+import { expect, spyOn, test } from "bun:test";
+import { mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
+import path from "node:path";
 
+import { syncProvider } from "../src/sync/index.js";
+import * as missingIssues from "../src/sync/missing-issues.js";
+import { MissingReasoningOptionsError } from "../src/sync/missing-reasoning-options.js";
 import {
   buildCheaperInferenceModel,
   CheaperInferenceResponse,
@@ -98,12 +103,56 @@ test("takes the gateway's limits when it publishes them and inherits when it doe
 });
 
 test("refuses to sync a reasoning model that has no authored controls", () => {
-  expect(() =>
+  // MissingReasoningOptionsError, not a bare Error: the runner catches this one
+  // to skip the single ID and keep the local file, instead of failing the run.
+  let thrown: unknown;
+  try {
     buildCheaperInferenceModel(sourceModel() as never, {
       ...existing,
       reasoning_options: undefined,
-    } as never),
-  ).toThrow(/reasoning_options/);
+    } as never);
+  } catch (error) {
+    thrown = error;
+  }
+  expect(thrown).toBeInstanceOf(MissingReasoningOptionsError);
+  expect((thrown as MissingReasoningOptionsError).modelId).toBe("claude-sonnet-5");
+  expect((thrown as Error).message).toContain("reasoning_options");
+});
+
+test("an unresearched reasoner is reported and its file kept, and the rest of the run continues", async () => {
+  const dir = await mkdtemp(path.join(import.meta.dirname, "../../../providers/.cheaperinference-sync-"));
+  const modelsDir = path.join(dir, "models");
+  const authored = '# authored by hand\nbase_model = "anthropic/claude-sonnet-5"\n';
+  const researched =
+    '# authored by hand\nbase_model = "anthropic/claude-opus-5"\n\n[[reasoning_options]]\ntype = "effort"\nvalues = ["low", "high"]\n';
+  await mkdir(modelsDir, { recursive: true });
+  await writeFile(path.join(modelsDir, "claude-sonnet-5.toml"), authored);
+  await writeFile(path.join(modelsDir, "claude-opus-5.toml"), researched);
+  const issues = spyOn(missingIssues, "openMissingModelIssues").mockResolvedValue([]);
+  try {
+    const result = await syncProvider(
+      {
+        ...cheaperinference,
+        modelsDir,
+        async fetchModels() {
+          return {
+            object: "list",
+            data: [sourceModel(), sourceModel({ id: "claude-opus-5" })],
+            pricing_version: "sha256:test",
+            pricing_checked_at: "2026-09-16T08:00:58.592Z",
+          } as never;
+        },
+      },
+      { openIssues: true },
+    );
+    expect(result.deleted).toBe(0);
+    expect(await readFile(path.join(modelsDir, "claude-sonnet-5.toml"), "utf8")).toBe(authored);
+    expect(issues.mock.calls[0]?.[1]).toEqual(["claude-sonnet-5"]);
+    expect(issues.mock.calls[0]?.[2]?.reasons?.["claude-sonnet-5"]).toContain("reasoning_options");
+  } finally {
+    issues.mockRestore();
+    await rm(dir, { recursive: true, force: true });
+  }
 });
 
 test("only syncs token-priced text routes", () => {
