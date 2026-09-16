@@ -1,6 +1,9 @@
+# No image input on this host: an image_url part is rejected (502, every upstream route failing) on 2 of 2
+# requests, even though the catalog reports capabilities.vision true (probed 2026-09-16).
 # Rates: GET https://api.cheaperinference.com/v1/models (pricing_version sha256:1099de72…, checked 2026-09-16T08:00:58Z)
 # Discounted marketplace rate, 30.00% off the model maker's list price ($10.0/$50.0 per 1M).
 base_model = "anthropic/claude-fable-5"
+attachment = false
 
 [interleaved]
 field = "reasoning_content"
@@ -14,3 +17,7 @@ input = 7.0
 output = 35.0
 cache_read = 0.7
 cache_write = 8.5
+
+[modalities]
+input = ["text"]
+output = ["text"]
