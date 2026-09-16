@@ -1,6 +1,7 @@
 import { z } from "zod";
 
 import type { ExistingModel, SyncedFullModel, SyncedModel, SyncProvider } from "../index.js";
+import { MissingReasoningOptionsError } from "../missing-reasoning-options.js";
 import { factorBaseModel } from "./openrouter.js";
 
 const API_ENDPOINT = "https://api.cheaperinference.com/v1/models";
@@ -133,8 +134,11 @@ export function buildCheaperInferenceModel(
   existing: ExistingModel,
 ): SyncedModel {
   if (existing.reasoning !== false && existing.reasoning_options === undefined) {
-    throw new Error(
-      `CheaperInference model ${model.id} requires hand-authored reasoning_options; the catalog exposes no reasoning controls`,
+    // The runner keeps the local file and reports the ID instead of failing the
+    // whole sync, so one unresearched model cannot stop the hourly run.
+    throw new MissingReasoningOptionsError(
+      model.id,
+      "reasons on this host but the catalog exposes no reasoning controls, so reasoning_options must be hand-authored",
     );
   }
 
