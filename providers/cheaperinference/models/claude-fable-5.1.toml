@@ -2,6 +2,9 @@
 # Discounted marketplace rate, 30.00% off the model maker's list price ($10.0/$50.0 per 1M).
 base_model = "anthropic/claude-fable-5-1"
 
+[interleaved]
+field = "reasoning_content"
+
 [[reasoning_options]]
 type = "effort"
 values = ["low", "medium", "high", "xhigh", "max"]

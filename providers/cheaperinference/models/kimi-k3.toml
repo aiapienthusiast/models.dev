@@ -3,6 +3,9 @@
 # Discounted marketplace rate, 30.00% off the model maker's list price ($3.0/$15.0 per 1M).
 base_model = "moonshotai/kimi-k3"
 
+[interleaved]
+field = "reasoning_content"
+
 [[reasoning_options]]
 type = "toggle"
 

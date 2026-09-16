@@ -3,6 +3,9 @@
 # Discounted marketplace rate, 30.00% off the model maker's list price ($0.1/$1.0 per 1M).
 base_model = "alibaba/qwen3.6-35b-a3b"
 
+[interleaved]
+field = "reasoning_content"
+
 [[reasoning_options]]
 type = "toggle"
 

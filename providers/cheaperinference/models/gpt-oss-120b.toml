@@ -2,6 +2,9 @@
 # Discounted marketplace rate, 60.00% off the model maker's list price ($0.1/$0.5 per 1M).
 base_model = "openai/gpt-oss-120b"
 
+[interleaved]
+field = "reasoning_content"
+
 [[reasoning_options]]
 type = "effort"
 values = ["low", "medium", "high"]

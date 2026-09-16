@@ -2,6 +2,9 @@
 # Discounted marketplace rate, 45.00% off the model maker's list price ($0.8/$2.55 per 1M).
 base_model = "zhipuai/glm-5.2"
 
+[interleaved]
+field = "reasoning_content"
+
 [[reasoning_options]]
 type = "effort"
 values = ["high", "max"]

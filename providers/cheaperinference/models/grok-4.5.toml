@@ -2,6 +2,9 @@
 # Discounted marketplace rate, 30.00% off the model maker's list price ($2.0/$6.0 per 1M).
 base_model = "xai/grok-4.5"
 
+[interleaved]
+field = "reasoning_content"
+
 [[reasoning_options]]
 type = "effort"
 values = ["low", "medium", "high"]

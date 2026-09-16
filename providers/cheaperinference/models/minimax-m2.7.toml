@@ -3,6 +3,9 @@
 # Discounted marketplace rate, 30.00% off the model maker's list price ($0.3/$1.2 per 1M).
 base_model = "minimax/MiniMax-M2.7"
 
+[interleaved]
+field = "reasoning_content"
+
 [[reasoning_options]]
 type = "toggle"
 

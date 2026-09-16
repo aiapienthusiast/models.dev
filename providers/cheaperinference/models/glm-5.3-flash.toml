@@ -2,6 +2,9 @@
 # Discounted marketplace rate, 46.29% off the model maker's list price ($0.15/$0.5 per 1M).
 base_model = "zhipuai/glm-5.3-flash"
 
+[interleaved]
+field = "reasoning_content"
+
 [[reasoning_options]]
 type = "effort"
 values = ["low", "high", "max"]
