@@ -1,12 +1,17 @@
 # Image input verified on this host: a 32x32 solid-colour PNG as a data: URI was named correctly on
 # 4 of 4 colour probes (probed 2026-09-17).
-# No reasoning on this host: plain, reasoning.enabled, reasoning.effort and thinking.budget_tokens each return
-# 200 with no reasoning_content and no reasoning token count, though the catalog reports
-# capabilities.reasoning true (probed 2026-09-16).
+# Reasoning is returned but no caller control could be reproduced: plain requests carried
+# reasoning_content (1007-1144 characters, 3 of 3) and thinking.type = "disabled" did not suppress it
+# (2 of 3 still reasoned). An earlier route for the same id returned no reasoning at all on 3 of 3 plain
+# requests, so the behaviour follows the upstream route the gateway picks, not the request
+# (probed 2026-09-17).
 # Rates: GET https://api.cheaperinference.com/v1/models (pricing_version sha256:6d2520b9…, checked 2026-09-17T07:00:28Z)
 # Discounted marketplace rate, 30.00% off the model maker's list price ($5.0/$25.0 per 1M).
 base_model = "anthropic/claude-opus-4-5"
-reasoning = false
+reasoning_options = []
+
+[interleaved]
+field = "reasoning_content"
 
 [cost]
 input = 3.5

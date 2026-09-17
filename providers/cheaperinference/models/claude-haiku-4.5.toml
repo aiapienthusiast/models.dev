@@ -1,12 +1,17 @@
 # Image input verified on this host: 2 of 4 colour probes exact, the others "lime" for green and
 # "magenta" for purple (probed 2026-09-17).
-# No reasoning on this host: plain, reasoning.enabled, reasoning.effort, top-level reasoning_effort and
-# thinking.budget_tokens each return 200 with no reasoning_content and no reasoning token count; the catalog
-# reports capabilities.reasoning false (probed 2026-09-16).
+# Reasoning appears on some upstream routes and no caller control could be reproduced: 2 of 20 requests
+# reasoned (reasoning.enabled = true once, 241 reasoning tokens; thinking.type = "enabled" once, 964
+# characters of reasoning_content) and the other 18, across plain, reasoning.enabled, reasoning.effort,
+# top-level reasoning_effort, thinking and thinking_budget, returned neither. The route the gateway picks
+# decides, not the request (probed 2026-09-17).
 # Rates: GET https://api.cheaperinference.com/v1/models (pricing_version sha256:6d2520b9…, checked 2026-09-17T07:00:28Z)
 # Discounted marketplace rate, 30.00% off the model maker's list price ($1.0/$5.0 per 1M).
 base_model = "anthropic/claude-haiku-4-5"
-reasoning = false
+reasoning_options = []
+
+[interleaved]
+field = "reasoning_content"
 
 [cost]
 input = 0.7

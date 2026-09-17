@@ -1,12 +1,19 @@
 # Image input verified on this host: 3 of 4 colour probes exact and the fourth called "lime" for
 # green (probed 2026-09-17).
-# No reasoning on this host: plain, reasoning.enabled, reasoning.effort and thinking.budget_tokens each return
-# 200 with no reasoning_content and no reasoning token count, though the catalog reports
-# capabilities.reasoning true (probed 2026-09-16).
+# Toggle: thinking.type = enabled|disabled
+# Measured on this host: thinking.type = "enabled" returned 205-308 reasoning tokens on 5 of 5 requests
+# and thinking.type = "disabled" returned none on 2 of 2. reasoning.enabled, reasoning.effort, top-level
+# reasoning_effort and thinking_budget changed nothing on 3 of 3 each. budget_tokens is accepted but its
+# effect was not observable (1024 and 8000 both produced 205-308) (probed 2026-09-17).
 # Rates: GET https://api.cheaperinference.com/v1/models (pricing_version sha256:6d2520b9…, checked 2026-09-17T07:00:28Z)
 # Discounted marketplace rate, 30.00% off the model maker's list price ($3.0/$15.0 per 1M).
 base_model = "anthropic/claude-sonnet-4-5"
-reasoning = false
+
+[interleaved]
+field = "reasoning_content"
+
+[[reasoning_options]]
+type = "toggle"
 
 [cost]
 input = 2.1
