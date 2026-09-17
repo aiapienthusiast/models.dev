@@ -23,4 +23,3 @@ context = 1048576
 
 [modalities]
 input = ["text"]
-output = ["text"]

@@ -17,4 +17,3 @@ cache_write = 0.201421
 
 [modalities]
 input = ["text"]
-output = ["text"]

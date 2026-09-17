@@ -23,4 +23,3 @@ output = 64000
 
 [modalities]
 input = ["text"]
-output = ["text"]
