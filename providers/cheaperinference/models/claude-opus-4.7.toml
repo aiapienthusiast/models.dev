@@ -1,12 +1,13 @@
+# Image input verified on this host: a 32x32 solid-colour PNG as a data: URI was named correctly on
+# 4 of 4 colour probes (probed 2026-09-17).
 # No reasoning on this host: plain, reasoning.enabled, reasoning.effort, top-level reasoning_effort and
 # thinking.budget_tokens each return 200 with no reasoning_content and no reasoning token count; the catalog
 # reports capabilities.reasoning false (probed 2026-09-16).
 # No image input on this host: an image_url part is rejected (400, or every upstream route failing) and the
 # catalog reports capabilities.vision false (probed 2026-09-16).
-# Rates: GET https://api.cheaperinference.com/v1/models (pricing_version sha256:1099de72…, checked 2026-09-16T08:00:58Z)
+# Rates: GET https://api.cheaperinference.com/v1/models (pricing_version sha256:6d2520b9…, checked 2026-09-17T07:00:28Z)
 # Discounted marketplace rate, 30.00% off the model maker's list price ($5.0/$25.0 per 1M).
 base_model = "anthropic/claude-opus-4-7"
-attachment = false
 reasoning = false
 
 [cost]
@@ -14,7 +15,3 @@ input = 3.5
 output = 17.5
 cache_read = 0.35
 cache_write = 4.25
-
-[modalities]
-input = ["text"]
-output = ["text"]
