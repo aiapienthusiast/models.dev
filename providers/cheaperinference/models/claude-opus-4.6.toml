@@ -19,7 +19,7 @@ type = "effort"
 values = ["high", "max"]
 
 [cost]
-input = 3.588321
-output = 17.941603
-cache_read = 0.35883207
-cache_write = 4.485400875
+input = 3.880875
+output = 19.404376
+cache_read = 0.38808751
+cache_write = 4.851093875

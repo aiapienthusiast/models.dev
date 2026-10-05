@@ -12,10 +12,10 @@ type = "effort"
 values = ["low", "medium", "high", "xhigh"]
 
 [cost]
-input = 1.237422
-output = 9.899376
-cache_read = 0.123742199
-cache_write = 1.23742199
+input = 1.31146
+output = 10.491683
+cache_read = 0.13114603775
+cache_write = 1.3114603775
 
 [limit]
 context = 256_000

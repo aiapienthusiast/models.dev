@@ -1,14 +1,14 @@
 # No usable image input on this host: the request is accepted but the image never reaches the model -
 # it answered NOIMAGE on 4 of 4 colour probes (probed 2026-09-17).
-# Toggle: reasoning.enabled = true|false
+# Reasoning is always on and takes no caller control, as on the lab entry (reasoning_options = []):
+# reasoning_content still comes back with reasoning.enabled = false (958-1616 chars, 3 of 3) and with
+# thinking.type = "disabled" (115-704 reasoning tokens, 3 of 3) (probed 2026-10-02).
 # Rates: GET https://api.cheaperinference.com/v1/models, kept current by the cheaperinference sync module.
 base_model = "minimax/MiniMax-M2.7"
+reasoning_options = []
 
 [interleaved]
 field = "reasoning_content"
-
-[[reasoning_options]]
-type = "toggle"
 
 [cost]
 input = 0.255

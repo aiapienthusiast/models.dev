@@ -155,6 +155,35 @@ test("an unresearched reasoner is reported and its file kept, and the rest of th
   }
 });
 
+test("keeps a slash-scoped catalog ID at its nested path", async () => {
+  const dir = await mkdtemp(path.join(import.meta.dirname, "../../../providers/.cheaperinference-sync-"));
+  const modelsDir = path.join(dir, "models");
+  const authored =
+    '# authored by hand\nbase_model = "google/gemini-3.5-flash-lite"\n\n[[reasoning_options]]\ntype = "effort"\nvalues = ["low", "high"]\n';
+  await mkdir(path.join(modelsDir, "google"), { recursive: true });
+  await writeFile(path.join(modelsDir, "google", "gemini-3.5-flash-lite.toml"), authored);
+  try {
+    const result = await syncProvider({
+      ...cheaperinference,
+      modelsDir,
+      async fetchModels() {
+        return {
+          object: "list",
+          data: [sourceModel({ id: "google/gemini-3.5-flash-lite", max_output_tokens: null })],
+          pricing_version: "sha256:test",
+          pricing_checked_at: "2026-10-02T08:00:00.000Z",
+        } as never;
+      },
+    });
+    expect(result.created).toBe(0);
+    expect(result.deleted).toBe(0);
+    const synced = await readFile(path.join(modelsDir, "google", "gemini-3.5-flash-lite.toml"), "utf8");
+    expect(synced).toContain('base_model = "google/gemini-3.5-flash-lite"');
+  } finally {
+    await rm(dir, { recursive: true, force: true });
+  }
+});
+
 test("only syncs token-priced text routes", () => {
   const ids = [
     sourceModel(),

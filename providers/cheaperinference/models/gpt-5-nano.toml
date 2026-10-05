@@ -9,10 +9,10 @@ type = "effort"
 values = ["minimal", "low", "medium", "high"]
 
 [cost]
-input = 0.040134
-output = 0.321075
-cache_read = 0.0040134345
-cache_write = 0.040134345
+input = 0.042065
+output = 0.336517
+cache_read = 0.0042064614
+cache_write = 0.042064614
 
 [modalities]
 input = ["text"]
